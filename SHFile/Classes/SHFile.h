@@ -21,6 +21,7 @@
 + (BOOL)saveAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
 - (BOOL)save:(NSError *__autoreleasing *)error;
 
++ (BOOL)removeAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
 - (BOOL)remove:(NSError *__autoreleasing *)error;
 
 @end

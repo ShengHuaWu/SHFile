@@ -85,6 +85,15 @@
 }
 
 #pragma mark - Removing
++ (BOOL)removeAll:(NSArray *)files error:(NSError *__autoreleasing *)error
+{
+    for (SHFile *file in files) {
+        if (![file remove:error]) return NO;
+    }
+    
+    return YES;
+}
+
 - (BOOL)remove:(NSError *__autoreleasing *)error
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];

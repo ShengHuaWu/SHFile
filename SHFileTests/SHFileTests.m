@@ -64,12 +64,15 @@
     XCTAssert(success, @"Removing single file error %@.", [error localizedDescription]);
 }
 
-- (void)testSaveMultipleFiles
+- (void)testSaveAndRemoveMultipleFiles
 {
     NSArray *files = [self generateFiles];
     NSError *error = nil;
     BOOL success = [SHFile saveAll:files error:&error];
     XCTAssert(success, @"Saving multiple files error %@.", [error localizedDescription]);
+    
+    success = [SHFile removeAll:files error:&error];
+    XCTAssert(success, @"Removing multiple files error %@.", [error localizedDescription]);
 }
 
 #pragma mark - File generater
