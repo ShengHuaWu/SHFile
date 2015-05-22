@@ -10,13 +10,17 @@
 
 @interface SHFile : NSObject
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong ,readonly) NSString *fileID;
 
 + (BOOL)setUpTemporaryDirectory;
 + (BOOL)cleanTemporaryDirectory;
 
 + (instancetype)fileWithName:(NSString *)name data:(NSData *)data;
+
++ (BOOL)saveAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
+- (BOOL)save:(NSError *__autoreleasing *)error;
+
+- (BOOL)remove:(NSError *__autoreleasing *)error;
 
 @end

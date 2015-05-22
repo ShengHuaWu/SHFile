@@ -19,25 +19,29 @@
 - (void)setUp
 {
     [super setUp];
+    [SHFile setUpTemporaryDirectory];
 }
 
 - (void)tearDown
 {
+    [SHFile cleanTemporaryDirectory];
     [super tearDown];
 }
 
-- (void)testSetUpTemporaryDirectory
+#pragma mark - Disable test
+- (void)DISABLE_testSetUpTemporaryDirectory
 {
     BOOL success = [SHFile setUpTemporaryDirectory];
     XCTAssert(success, @"Set up failed.");
 }
 
-- (void)testCleanTemporaryDirectory
+- (void)DISABLE_testCleanTemporaryDirectory
 {
     BOOL success = [SHFile cleanTemporaryDirectory];
     XCTAssert(success, @"Clean failed.");
 }
 
+#pragma mark - Test
 - (void)testFileCreation
 {
     NSString *name = @"readme.md";
@@ -46,8 +50,47 @@
     SHFile *file = [SHFile fileWithName:name data:data];
     
     XCTAssert([name isEqualToString:file.name], @"File name is not correct.");
-    XCTAssert([string isEqualToString:[[NSString alloc] initWithData:file.data encoding:NSUTF8StringEncoding]], @"File data is not correct.");
     XCTAssertNotNil(file.fileID, @"File identifier is empty.");
+}
+
+- (void)testSaveAndRemoveSingleFile
+{
+    SHFile *file = [self generateFile];
+    NSError *error = nil;
+    BOOL success = [file save:&error];
+    XCTAssert(success, @"Saving single file error %@.", [error localizedDescription]);
+    
+    success = [file remove:&error];
+    XCTAssert(success, @"Removing single file error %@.", [error localizedDescription]);
+}
+
+- (void)testSaveMultipleFiles
+{
+    NSArray *files = [self generateFiles];
+    NSError *error = nil;
+    BOOL success = [SHFile saveAll:files error:&error];
+    XCTAssert(success, @"Saving multiple files error %@.", [error localizedDescription]);
+}
+
+#pragma mark - File generater
+- (SHFile *)generateFile
+{
+    NSString *name = @"LargeImage.jpg";
+    UIImage *image = [UIImage imageNamed:@"LargeImage"];
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    
+    return [SHFile fileWithName:name data:data];
+}
+
+- (NSArray *)generateFiles
+{
+    NSMutableArray *files = [NSMutableArray array];
+    for (NSInteger index = 0; index < 10; index ++) {
+        SHFile *file = [self generateFile];
+        [files addObject:file];
+    }
+    
+    return files;
 }
 
 @end
