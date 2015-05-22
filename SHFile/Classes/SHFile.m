@@ -28,7 +28,7 @@
 }
 
 #pragma mark - Clean
-+ (BOOL)cleanTemporaryDirectory
++ (BOOL)cleanUpTemporaryDirectory
 {
     NSURL *directoryURL = [self temporaryDirectoryURL];
     NSFileManager *fileManager = [NSFileManager defaultManager];

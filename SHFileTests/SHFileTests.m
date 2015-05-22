@@ -24,7 +24,7 @@
 
 - (void)tearDown
 {
-    [SHFile cleanTemporaryDirectory];
+    [SHFile cleanUpTemporaryDirectory];
     [super tearDown];
 }
 
@@ -37,7 +37,7 @@
 
 - (void)DISABLE_testCleanTemporaryDirectory
 {
-    BOOL success = [SHFile cleanTemporaryDirectory];
+    BOOL success = [SHFile cleanUpTemporaryDirectory];
     XCTAssert(success, @"Clean failed.");
 }
 

@@ -14,7 +14,7 @@
 @property (nonatomic, strong ,readonly) NSString *fileID;
 
 + (BOOL)setUpTemporaryDirectory;
-+ (BOOL)cleanTemporaryDirectory;
++ (BOOL)cleanUpTemporaryDirectory;
 
 + (instancetype)fileWithName:(NSString *)name data:(NSData *)data;
 
