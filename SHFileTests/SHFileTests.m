@@ -20,11 +20,13 @@
 {
     [super setUp];
     [SHFile setUpTemporaryDirectory];
+    [SHFile setUpDocumentsDirectory];
 }
 
 - (void)tearDown
 {
     [SHFile cleanUpTemporaryDirectory];
+    [SHFile cleanUpDocumentsDirectory];
     [super tearDown];
 }
 
@@ -32,13 +34,25 @@
 - (void)DISABLE_testSetUpTemporaryDirectory
 {
     BOOL success = [SHFile setUpTemporaryDirectory];
-    XCTAssert(success, @"Set up failed.");
+    XCTAssert(success, @"Set up temporary directory failed.");
 }
 
 - (void)DISABLE_testCleanTemporaryDirectory
 {
     BOOL success = [SHFile cleanUpTemporaryDirectory];
-    XCTAssert(success, @"Clean failed.");
+    XCTAssert(success, @"Clean up temporary directory failed.");
+}
+
+- (void)DISABLE_testSetUpDocumentsDirectory
+{
+    BOOL success = [SHFile setUpDocumentsDirectory];
+    XCTAssert(success, @"Set up documents directory failed.");
+}
+
+- (void)DISABLE_testCleanUpDocumentsDirectory
+{
+    BOOL success = [SHFile cleanUpDocumentsDirectory];
+    XCTAssert(success, @"Clean up documents directory failed.");
 }
 
 #pragma mark - Test
@@ -53,26 +67,50 @@
     XCTAssertNotNil(file.fileID, @"File identifier is empty.");
 }
 
-- (void)testSaveAndRemoveSingleFile
+- (void)testSaveAndDeleteSingleFileInTemporaryDirectory
 {
     SHFile *file = [self generateFile];
     NSError *error = nil;
-    BOOL success = [file save:&error];
-    XCTAssert(success, @"Saving single file error %@.", [error localizedDescription]);
+    BOOL success = [file saveInTemporaryDirectory:&error];
+    XCTAssert(success, @"Saving single file in temporary directory error %@.", [error localizedDescription]);
     
-    success = [file remove:&error];
-    XCTAssert(success, @"Removing single file error %@.", [error localizedDescription]);
+    success = [file deleteInTemporaryDirectory:&error];
+    XCTAssert(success, @"Deleting single file in temporary directory error %@.", [error localizedDescription]);
 }
 
-- (void)testSaveAndRemoveMultipleFiles
+- (void)testSaveAndDeleteMultipleFilesInTemporaryDirectory
 {
     NSArray *files = [self generateFiles];
     NSError *error = nil;
-    BOOL success = [SHFile saveAll:files error:&error];
-    XCTAssert(success, @"Saving multiple files error %@.", [error localizedDescription]);
+    BOOL success = [SHFile saveAllInTemporaryDirectory:files error:&error];
+    XCTAssert(success, @"Saving multiple files in temporary directory error %@.", [error localizedDescription]);
     
-    success = [SHFile removeAll:files error:&error];
-    XCTAssert(success, @"Removing multiple files error %@.", [error localizedDescription]);
+    success = [SHFile deleteAllInTemporaryDirectory:files error:&error];
+    XCTAssert(success, @"Deleting multiple files in temporary directory error %@.", [error localizedDescription]);
+}
+
+- (void)testSaveSingleAndDeleteFileInDocumentsDirectory
+{
+    SHFile *file = [self generateFile];
+    NSError *error = nil;
+    
+    BOOL success = [file saveInDocumentsDirectory:&error];
+    XCTAssert(success, @"Saving single file in documents directory error %@.", [error localizedDescription]);
+    
+    success = [file deleteInDocumentsDirectory:&error];
+    XCTAssert(success, @"Deleting multiple files in documents directory error %@.", [error localizedDescription]);
+
+}
+
+- (void)testSaveAndDeleteMultipleFilesInDocumentsDirectory
+{
+    NSArray *files = [self generateFiles];
+    NSError *error = nil;
+    BOOL success = [SHFile saveAllInDocumentsDirectory:files error:&error];
+    XCTAssert(success, @"Saving multiple files in documents directory error %@.", [error localizedDescription]);
+    
+    success = [SHFile deleteAllInDocumentsDirectory:files error:&error];
+    XCTAssert(success, @"Deleting multiple files in documents directory error %@.", [error localizedDescription]);
 }
 
 #pragma mark - File generater

@@ -14,14 +14,21 @@
 @property (nonatomic, strong ,readonly) NSString *fileID;
 
 + (BOOL)setUpTemporaryDirectory;
++ (BOOL)setUpDocumentsDirectory;
+
 + (BOOL)cleanUpTemporaryDirectory;
++ (BOOL)cleanUpDocumentsDirectory;
 
 + (instancetype)fileWithName:(NSString *)name data:(NSData *)data;
 
-+ (BOOL)saveAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
-- (BOOL)save:(NSError *__autoreleasing *)error;
++ (BOOL)saveAllInTemporaryDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
++ (BOOL)saveAllInDocumentsDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
+- (BOOL)saveInTemporaryDirectory:(NSError *__autoreleasing *)error;
+- (BOOL)saveInDocumentsDirectory:(NSError *__autoreleasing *)error;
 
-+ (BOOL)removeAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
-- (BOOL)remove:(NSError *__autoreleasing *)error;
++ (BOOL)deleteAllInTemporaryDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
++ (BOOL)deleteAllInDocumentsDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
+- (BOOL)deleteInTemporaryDirectory:(NSError *__autoreleasing *)error;
+- (BOOL)deleteInDocumentsDirectory:(NSError *__autoreleasing *)error;
 
 @end

@@ -23,7 +23,13 @@
 {
     NSURL *directoryURL = [self temporaryDirectoryURL];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
+    return [fileManager createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:nil];
+}
+
++ (BOOL)setUpDocumentsDirectory
+{
+    NSURL *directoryURL = [self documentsDirectoryURL];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
     return [fileManager createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:nil];
 }
 
@@ -31,8 +37,13 @@
 + (BOOL)cleanUpTemporaryDirectory
 {
     NSURL *directoryURL = [self temporaryDirectoryURL];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    return [fileManager removeItemAtURL:directoryURL error:nil];
+    return [[NSFileManager defaultManager] removeItemAtURL:directoryURL error:nil];
+}
+
++ (BOOL)cleanUpDocumentsDirectory
+{
+    NSURL *directoryURL = [self documentsDirectoryURL];
+    return [[NSFileManager defaultManager] removeItemAtURL:directoryURL error:nil];
 }
 
 #pragma mark - Directory URL
@@ -42,6 +53,14 @@
     return [NSURL fileURLWithPath:directoryPath isDirectory:YES];
 }
 
++ (NSURL *)documentsDirectoryURL
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    // Use class name to create the directory URL
+    return [documentsURL URLByAppendingPathComponent:NSStringFromClass(self)];
+}
+
 #pragma mark - Creation
 + (instancetype)fileWithName:(NSString *)name data:(NSData *)data
 {
@@ -49,7 +68,6 @@
     SHFile *file = [[SHFile alloc] initWithFileID:fileID];
     file.name = name;
     file.data = data;
-    
     return file;
 }
 
@@ -64,46 +82,83 @@
 }
 
 #pragma mark - Saving
-+ (BOOL)saveAll:(NSArray *)files error:(NSError *__autoreleasing *)error
++ (BOOL)saveAllInTemporaryDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error
 {
     for (SHFile *file in files) {
-        if (![file save:error]) return NO;
+        if (![file saveInTemporaryDirectory:error]) return NO;
     }
-    
     return YES;
 }
 
-- (BOOL)save:(NSError *__autoreleasing *)error
++ (BOOL)saveAllInDocumentsDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error
+{
+    for (SHFile * file in files) {
+        if (![file saveInDocumentsDirectory:error]) return NO;
+    }
+    return YES;
+}
+
+- (BOOL)saveInTemporaryDirectory:(NSError *__autoreleasing *)error
+{
+    return [self saveAtFileURL:[self fileURLInTemporaryDirectory] error:error];
+}
+
+- (BOOL)saveInDocumentsDirectory:(NSError *__autoreleasing *)error
+{
+    return [self saveAtFileURL:[self fileURLInDocumentsDirectory] error:error];
+}
+
+- (BOOL)saveAtFileURL:(NSURL *)fileURL error:(NSError *__autoreleasing *)error
 {
     if (![self.data length]) return YES;
     
-    BOOL success = [self.data writeToURL:[self fileURL] options:NSDataWritingAtomic error:error];
-    
+    BOOL success = [self.data writeToURL:fileURL options:NSDataWritingAtomic error:error];
     if (success) self.data = nil;
-    
+        
     return success;
 }
 
 #pragma mark - Removing
-+ (BOOL)removeAll:(NSArray *)files error:(NSError *__autoreleasing *)error
++ (BOOL)deleteAllInTemporaryDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error
 {
     for (SHFile *file in files) {
-        if (![file remove:error]) return NO;
+        if (![file deleteInTemporaryDirectory:error]) return NO;
     }
-    
     return YES;
 }
 
-- (BOOL)remove:(NSError *__autoreleasing *)error
++ (BOOL)deleteAllInDocumentsDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    return [fileManager removeItemAtURL:[self fileURL] error:error];
+    for (SHFile *file in files) {
+        if (![file deleteInDocumentsDirectory:error]) return NO;
+    }
+    return YES;
+}
+
+- (BOOL)deleteInTemporaryDirectory:(NSError *__autoreleasing *)error
+{
+    return [self deleteAtFileURL:[self fileURLInTemporaryDirectory] error:error];
+}
+
+- (BOOL)deleteInDocumentsDirectory:(NSError *__autoreleasing *)error
+{
+    return [self deleteAtFileURL:[self fileURLInDocumentsDirectory] error:error];
+}
+
+- (BOOL)deleteAtFileURL:(NSURL *)fileURL error:(NSError *__autoreleasing *)error
+{
+    return [[NSFileManager defaultManager] removeItemAtURL:fileURL error:error];
 }
 
 #pragma mark - File URL
-- (NSURL *)fileURL
+- (NSURL *)fileURLInTemporaryDirectory
 {
     return [[SHFile temporaryDirectoryURL] URLByAppendingPathComponent:self.fileID];
+}
+
+- (NSURL *)fileURLInDocumentsDirectory
+{
+    return [[SHFile documentsDirectoryURL] URLByAppendingPathComponent:self.fileID];
 }
 
 @end
