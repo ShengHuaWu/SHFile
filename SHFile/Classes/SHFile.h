@@ -8,27 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+// This is an abstract class, please use its subclass instead.
 @interface SHFile : NSObject
 
 @property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong ,readonly) NSString *fileID;
 
-+ (BOOL)setUpTemporaryDirectory;
-+ (BOOL)setUpDocumentsDirectory;
-
-+ (BOOL)cleanUpTemporaryDirectory;
-+ (BOOL)cleanUpDocumentsDirectory;
-
 + (instancetype)fileWithName:(NSString *)name data:(NSData *)data;
 
-+ (BOOL)saveAllInTemporaryDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
-+ (BOOL)saveAllInDocumentsDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
-- (BOOL)saveInTemporaryDirectory:(NSError *__autoreleasing *)error;
-- (BOOL)saveInDocumentsDirectory:(NSError *__autoreleasing *)error;
++ (BOOL)setUp;
++ (BOOL)cleanUp;
 
-+ (BOOL)deleteAllInTemporaryDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
-+ (BOOL)deleteAllInDocumentsDirectory:(NSArray *)files error:(NSError *__autoreleasing *)error;
-- (BOOL)deleteInTemporaryDirectory:(NSError *__autoreleasing *)error;
-- (BOOL)deleteInDocumentsDirectory:(NSError *__autoreleasing *)error;
++ (BOOL)saveAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
+- (BOOL)saveData:(NSError *__autoreleasing *)error;
++ (BOOL)deleteAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
+- (BOOL)deleteData:(NSError *__autoreleasing *)error;
+
+// The following methods are abstract
++ (NSURL *)directoryURL;
+- (NSURL *)fileURL;
 
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8811F771B130D350035D609 /* SHTemporaryFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A8811F761B130D350035D609 /* SHTemporaryFile.m */; };
+		A8811F791B130E940035D609 /* SHTemporaryFileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A8811F781B130E940035D609 /* SHTemporaryFileTests.m */; };
+		A8811F7C1B1318980035D609 /* SHDocumentsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A8811F7B1B1318980035D609 /* SHDocumentsFile.m */; };
+		A8811F7E1B131BAF0035D609 /* SHDocumentsFileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A8811F7D1B131BAF0035D609 /* SHDocumentsFileTests.m */; };
 		A8813DA81B0DB3CB00A04E81 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A8813DA71B0DB3CB00A04E81 /* main.m */; };
 		A8813DAB1B0DB3CB00A04E81 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A8813DAA1B0DB3CB00A04E81 /* AppDelegate.m */; };
 		A8813DAE1B0DB3CB00A04E81 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8813DAD1B0DB3CB00A04E81 /* ViewController.m */; };
@@ -28,6 +32,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A8811F751B130D350035D609 /* SHTemporaryFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHTemporaryFile.h; path = Classes/SHTemporaryFile.h; sourceTree = "<group>"; };
+		A8811F761B130D350035D609 /* SHTemporaryFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHTemporaryFile.m; path = Classes/SHTemporaryFile.m; sourceTree = "<group>"; };
+		A8811F781B130E940035D609 /* SHTemporaryFileTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHTemporaryFileTests.m; sourceTree = "<group>"; };
+		A8811F7A1B1318980035D609 /* SHDocumentsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHDocumentsFile.h; path = Classes/SHDocumentsFile.h; sourceTree = "<group>"; };
+		A8811F7B1B1318980035D609 /* SHDocumentsFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHDocumentsFile.m; path = Classes/SHDocumentsFile.m; sourceTree = "<group>"; };
+		A8811F7D1B131BAF0035D609 /* SHDocumentsFileTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDocumentsFileTests.m; sourceTree = "<group>"; };
 		A8813DA21B0DB3CB00A04E81 /* SHFile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHFile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8813DA61B0DB3CB00A04E81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8813DA71B0DB3CB00A04E81 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -110,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				A8813DC11B0DB3CB00A04E81 /* SHFileTests.m */,
+				A8811F781B130E940035D609 /* SHTemporaryFileTests.m */,
+				A8811F7D1B131BAF0035D609 /* SHDocumentsFileTests.m */,
 				A8813DBF1B0DB3CB00A04E81 /* Supporting Files */,
 			);
 			path = SHFileTests;
@@ -128,6 +140,10 @@
 			children = (
 				A8813DCB1B0DB52600A04E81 /* SHFile.h */,
 				A8813DCC1B0DB52600A04E81 /* SHFile.m */,
+				A8811F751B130D350035D609 /* SHTemporaryFile.h */,
+				A8811F761B130D350035D609 /* SHTemporaryFile.m */,
+				A8811F7A1B1318980035D609 /* SHDocumentsFile.h */,
+				A8811F7B1B1318980035D609 /* SHDocumentsFile.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -233,7 +249,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8813DAE1B0DB3CB00A04E81 /* ViewController.m in Sources */,
+				A8811F771B130D350035D609 /* SHTemporaryFile.m in Sources */,
 				A8813DAB1B0DB3CB00A04E81 /* AppDelegate.m in Sources */,
+				A8811F7C1B1318980035D609 /* SHDocumentsFile.m in Sources */,
 				A8813DCD1B0DB52600A04E81 /* SHFile.m in Sources */,
 				A8813DA81B0DB3CB00A04E81 /* main.m in Sources */,
 			);
@@ -243,7 +261,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8811F791B130E940035D609 /* SHTemporaryFileTests.m in Sources */,
 				A8813DC21B0DB3CB00A04E81 /* SHFileTests.m in Sources */,
+				A8811F7E1B131BAF0035D609 /* SHDocumentsFileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +450,7 @@
 				A8813DC71B0DB3CB00A04E81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A8813DC81B0DB3CB00A04E81 /* Build configuration list for PBXNativeTarget "SHFileTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +459,7 @@
 				A8813DCA1B0DB3CB00A04E81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

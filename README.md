@@ -1,40 +1,34 @@
 # SHFile
-Preserve files (datas) in the local temporary or documents directory.
+The main purpose of this project is to preserve files in the local temporary or documents directory.
+However, _SHFile_ is an abstract class, please use its subclass instead.
+There are two subclasses _SHTemporaryFile_ and _SHDocumentsFile_.
 
 ## Usage
-If you would like to store files in the temporary directory,
-you can invoke the set-up method at first.
+The following example is related to _SHTemporaryFile_ class,
+and the usage of _SHDocumentsFile_ is quite similar.
 
-    [SHFile setUpTemporaryDirectory];
+First of all, invoke the set-up method.
+
+    [SHTemporaryFile setUp];
 
 Create a file by a given name and data,
 and save the file in the temporary directory.
 
     NSData *data = ...;
-    SHFile *file = [SHFile fileWithName:@"filename.txt" data:data];
+    SHTemporaryFile *file = [SHTemporaryFile fileWithName:@"filename.txt" data:data];
     NSError *error = nil;
-    [file saveInTemporaryDirectory:&error];
+    [file saveData:&error];
 
 Delete the data in the temporary directory.
 
-    [file deleteInTemporaryDirectory:&error];
+    [file deleteData:&error];
 
 Clean up the temporary directory.
 
-    [SHFile cleanTemporaryDirectory];
+    [SHTemporaryFile cleanUp];
 
-It's also possible to store files in the documents directory,
-and you should invoke the other set-up method at first.
+It's also possible to save or delete multiple files at once.
 
-    [SHFile setUpDocumentsDirectory];
-
-Similarly, you're able to save or to delete the file in the documents directory.
-
-    NSData *data = ...;
-    SHFile *file = [SHFile fileWithName:@"filename.txt" data:data];
+    NSArray *files = [self generateFiles]; // Generate multiple SHTemporaryFile instances.
     NSError *error = nil;
-    [file saveInDocumentsDirectory:&error];
-
-    // ...
-
-    [file deleteInDocumentsDirectory:&error];
+    [SHTemporaryFile saveAll:files error:&error];
