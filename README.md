@@ -36,6 +36,6 @@ Clean up the temporary directory.
 
 It's also possible to save (delete) multiple files at once.
 
-    NSArray *files = [self generateFiles]; // Generate several SHTemporaryFile instances.
+    NSArray *files; // An array contains several SHTemporaryFile instances.
     NSError *error = nil;
     [SHTemporaryFile saveAll:files error:&error];
