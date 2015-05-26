@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 // This is an abstract class, please use its subclass instead.
-@interface SHFile : NSObject
+@interface SHFile : NSObject <NSCoding>
 
 @property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong ,readonly) NSString *fileID;
@@ -23,6 +23,8 @@
 - (BOOL)saveData:(NSError *__autoreleasing *)error;
 + (BOOL)deleteAll:(NSArray *)files error:(NSError *__autoreleasing *)error;
 - (BOOL)deleteData:(NSError *__autoreleasing *)error;
+
+- (NSData *)retrieveData;
 
 // The following methods are abstract
 + (NSURL *)directoryURL;

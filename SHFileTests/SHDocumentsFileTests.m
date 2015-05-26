@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "SHDocumentsFile.h"
+#import "SHFile+Generator.h"
 
 @interface SHDocumentsFileTests : XCTestCase
 
@@ -42,44 +43,31 @@
 #pragma mark - Test
 - (void)testSaveAndDeleteSingleFile
 {
-    SHDocumentsFile *file = [self generateFile];
+    SHDocumentsFile *file = (SHDocumentsFile *)[SHDocumentsFile generateTestFile];
     NSError *error = nil;
+    XCTAssert([file saveData:&error], @"Saving single file error %@.", [error localizedDescription]);
     
-    BOOL success = [file saveData:&error];
-    XCTAssert(success, @"Saving single file error %@.", [error localizedDescription]);
-    
-    success = [file deleteData:&error];
-    XCTAssert(success, @"Deleting multiple files error %@.", [error localizedDescription]);
+    XCTAssert([file deleteData:&error], @"Deleting single files error %@.", [error localizedDescription]);
 }
 
 - (void)testSaveAndDeleteMultipleFiles
 {
-    NSArray *files = [self generateFiles];
+    NSArray *files = [SHDocumentsFile generateTestFiles];
     NSError *error = nil;
     BOOL success = [SHDocumentsFile saveAll:files error:&error];
-    XCTAssert(success, @"Saving multiple files in documents directory error %@.", [error localizedDescription]);
+    XCTAssert(success, @"Saving multiple files error %@.", [error localizedDescription]);
     
     success = [SHDocumentsFile deleteAll:files error:&error];
-    XCTAssert(success, @"Deleting multiple files in documents directory error %@.", [error localizedDescription]);
+    XCTAssert(success, @"Deleting multiple files error %@.", [error localizedDescription]);
 }
 
-#pragma mark - File generater
-- (SHDocumentsFile *)generateFile
+- (void)testRetrieveData
 {
-    NSString *name = @"LargeImage.jpg";
-    UIImage *image = [UIImage imageNamed:@"LargeImage"];
-    NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    return [SHDocumentsFile fileWithName:name data:data];
-}
-
-- (NSArray *)generateFiles
-{
-    NSMutableArray *files = [NSMutableArray array];
-    for (NSInteger index = 0; index < 10; index ++) {
-        SHDocumentsFile *file = [self generateFile];
-        [files addObject:file];
-    }
-    return files;
+    SHDocumentsFile *file = (SHDocumentsFile *)[SHDocumentsFile generateTestFile];
+    NSError *error = nil;
+    XCTAssert([file saveData:&error], @"Saving single file error %@.", [error localizedDescription]);
+    
+    XCTAssertNotNil([file retrieveData], @"Data is empty.");
 }
 
 @end

@@ -18,6 +18,26 @@
 
 @implementation SHFile
 
+#pragma mark - NSCoding
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:_fileID forKey:@"fileID"];
+    [aCoder encodeObject:_name forKey:@"name"];
+    [aCoder encodeObject:_data forKey:@"data"];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        _fileID = [aDecoder decodeObjectForKey:@"fileID"];
+        _name = [aDecoder decodeObjectForKey:@"name"];
+        _data = [aDecoder decodeObjectForKey:@"data"];
+    }
+    
+    return self;
+}
+
 #pragma mark - Creation
 + (instancetype)fileWithName:(NSString *)name data:(NSData *)data
 {
@@ -83,6 +103,20 @@
 - (BOOL)deleteData:(NSError *__autoreleasing *)error
 {
     return [[NSFileManager defaultManager] removeItemAtURL:[self fileURL] error:error];
+}
+
+#pragma mark - Retrieve data
+- (NSData *)retrieveData
+{
+    if ([self.data length]) return self.data;
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *fileURL = [self fileURL];
+    if ([fileManager fileExistsAtPath:fileURL.path]) {
+        return [NSData dataWithContentsOfURL:fileURL];
+    }
+    
+    return nil;
 }
 
 #pragma mark - Abstract method

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "SHTemporaryFile.h"
+#import "SHFile+Generator.h"
 
 @interface SHTemporaryFileTests : XCTestCase
 
@@ -42,44 +43,31 @@
 #pragma mark - Test
 - (void)testSaveAndDeleteSingleFile
 {
-    SHTemporaryFile *file = [self generateFile];
+    SHTemporaryFile *file = (SHTemporaryFile *)[SHTemporaryFile generateTestFile];
     NSError *error = nil;
-    BOOL success = [file saveData:&error];
-    XCTAssert(success, @"Saving single file error %@.", [error localizedDescription]);
+    XCTAssert([file saveData:&error], @"Saving single file error %@.", [error localizedDescription]);
     
-    success = [file deleteData:&error];
-    XCTAssert(success, @"Deleting single file error %@.", [error localizedDescription]);
+    XCTAssert([file deleteData:&error], @"Deleting single file error %@.", [error localizedDescription]);
 }
 
 - (void)testSaveAndDeleteMultipleFiles
 {
-    NSArray *files = [self generateFiles];
+    NSArray *files = [SHTemporaryFile generateTestFiles];
     NSError *error = nil;
     BOOL success = [SHTemporaryFile saveAll:files error:&error];
-    XCTAssert(success, @"Saving multiple files in temporary directory error %@.", [error localizedDescription]);
+    XCTAssert(success, @"Saving multiple files error %@.", [error localizedDescription]);
     
     success = [SHTemporaryFile deleteAll:files error:&error];
-    XCTAssert(success, @"Deleting multiple files in temporary directory error %@.", [error localizedDescription]);
+    XCTAssert(success, @"Deleting multiple files error %@.", [error localizedDescription]);
 }
 
-#pragma mark - File generater
-- (SHTemporaryFile *)generateFile
+- (void)testRetrieveData
 {
-    NSString *name = @"LargeImage.jpg";
-    UIImage *image = [UIImage imageNamed:@"LargeImage"];
-    NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    return [SHTemporaryFile fileWithName:name data:data];
-}
-
-- (NSArray *)generateFiles
-{
-    NSMutableArray *files = [NSMutableArray array];
-    for (NSInteger index = 0; index < 10; index ++) {
-        SHTemporaryFile *file = [self generateFile];
-        [files addObject:file];
-    }
+    SHTemporaryFile *file = (SHTemporaryFile *)[SHTemporaryFile generateTestFile];
+    NSError *error = nil;
+    XCTAssert([file saveData:&error], @"Saving single file error: %@", [error localizedDescription]);
     
-    return files;
+    XCTAssertNotNil([file retrieveData], @"Data is empty.");
 }
 
 @end
