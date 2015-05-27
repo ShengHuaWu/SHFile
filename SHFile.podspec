@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SHFile"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Preserve data in the local directory."
   s.description  = "However, SHFile is an abstract class,
                     please use its subclass instead.
