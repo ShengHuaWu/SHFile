@@ -19,6 +19,7 @@
 		A8813DB61B0DB3CB00A04E81 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8813DB41B0DB3CB00A04E81 /* LaunchScreen.xib */; };
 		A8813DC21B0DB3CB00A04E81 /* SHFileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A8813DC11B0DB3CB00A04E81 /* SHFileTests.m */; };
 		A8813DCD1B0DB52600A04E81 /* SHFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A8813DCC1B0DB52600A04E81 /* SHFile.m */; };
+		A8952BFD1B15974300FEA378 /* SHFile+Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = A8AC6AAA1B141BC20039A82E /* SHFile+Generator.m */; };
 		A8AC6AAB1B141BC20039A82E /* SHFile+Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = A8AC6AAA1B141BC20039A82E /* SHFile+Generator.m */; };
 /* End PBXBuildFile section */
 
@@ -261,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8952BFD1B15974300FEA378 /* SHFile+Generator.m in Sources */,
 				A8813DAE1B0DB3CB00A04E81 /* ViewController.m in Sources */,
 				A8811F771B130D350035D609 /* SHTemporaryFile.m in Sources */,
 				A8813DAB1B0DB3CB00A04E81 /* AppDelegate.m in Sources */,

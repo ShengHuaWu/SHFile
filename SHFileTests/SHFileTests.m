@@ -16,7 +16,6 @@
 
 @implementation SHFileTests
 
-
 - (void)setUp
 {
     [super setUp];

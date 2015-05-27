@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SHTemporaryFile.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [SHTemporaryFile setUp];
+    
     return YES;
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [SHTemporaryFile cleanUp];
 }
 
 @end
