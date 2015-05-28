@@ -26,7 +26,9 @@
 
 - (NSData *)retrieveData;
 
-// The following methods are abstract
+// The following methods are abstract.
+// If you would like to create your own subclass,
+// please remember to implement the methods.
 + (NSURL *)directoryURL;
 - (NSURL *)fileURL;
 

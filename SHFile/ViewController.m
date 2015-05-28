@@ -8,9 +8,12 @@
 
 #import "ViewController.h"
 #import "SHTemporaryFile.h"
-#import "SHFile+Generator.h"
+#import "SHDownloader.h"
 
 @interface ViewController ()
+
+@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, strong) SHDownloader *downloader;
 
 @end
 
@@ -21,17 +24,32 @@
 {
     [super viewDidLoad];
     
-    SHTemporaryFile *file = (SHTemporaryFile *)[SHTemporaryFile generateTestFile];
-    NSError *error = nil;
-    if ([file saveData:&error]) {
-        NSData *data = [file retrieveData];
-        UIImage *image = [UIImage imageWithData:data];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        [imageView sizeToFit];
-        [self.view addSubview:imageView];
-    } else {
-        NSLog(@"Saving error: %@", [error localizedDescription]);
-    }
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:scrollView];
+    self.scrollView = scrollView;
+    
+    self.downloader = [[SHDownloader alloc] init];
+    NSURL *url = [NSURL URLWithString:@"http://tmacfitness.com/wp-content/uploads/2013/04/Beauty-of-nature-random-4884759-1280-800.jpg"];
+    [self.downloader fetchDataInBackground:url handler:^(NSData *data, NSError *error) {
+        if ([data length]) {
+            SHTemporaryFile *file = [SHTemporaryFile fileWithName:@"LargeImage" data:data];
+            if ([file saveData:&error]) {
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[file retrieveData]]];
+                [imageView sizeToFit];
+                [self.scrollView addSubview:imageView];
+                self.scrollView.contentSize = imageView.frame.size;
+            } else {
+                NSLog(@"Saving error: %@", [error localizedDescription]);
+            }
+        } else {
+            NSLog(@"Download error: %@", [error localizedDescription]);
+        }
+    }];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    self.scrollView.frame = self.view.bounds;
 }
 
 @end

@@ -21,6 +21,8 @@
 		A8813DCD1B0DB52600A04E81 /* SHFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A8813DCC1B0DB52600A04E81 /* SHFile.m */; };
 		A8952BFD1B15974300FEA378 /* SHFile+Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = A8AC6AAA1B141BC20039A82E /* SHFile+Generator.m */; };
 		A8AC6AAB1B141BC20039A82E /* SHFile+Generator.m in Sources */ = {isa = PBXBuildFile; fileRef = A8AC6AAA1B141BC20039A82E /* SHFile+Generator.m */; };
+		A8E2938F1B16F5A300902262 /* SHDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = A8E2938E1B16F5A300902262 /* SHDownloader.m */; };
+		A8E293931B16F63700902262 /* SHDownloaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A8E293921B16F63700902262 /* SHDownloaderTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,9 @@
 		A8813DCC1B0DB52600A04E81 /* SHFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHFile.m; path = Classes/SHFile.m; sourceTree = "<group>"; };
 		A8AC6AA91B141BC20039A82E /* SHFile+Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SHFile+Generator.h"; path = "Categories/SHFile+Generator.h"; sourceTree = "<group>"; };
 		A8AC6AAA1B141BC20039A82E /* SHFile+Generator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SHFile+Generator.m"; path = "Categories/SHFile+Generator.m"; sourceTree = "<group>"; };
+		A8E2938D1B16F5A300902262 /* SHDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHDownloader.h; path = Classes/SHDownloader.h; sourceTree = "<group>"; };
+		A8E2938E1B16F5A300902262 /* SHDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHDownloader.m; path = Classes/SHDownloader.m; sourceTree = "<group>"; };
+		A8E293921B16F63700902262 /* SHDownloaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDownloaderTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +131,7 @@
 				A8813DC11B0DB3CB00A04E81 /* SHFileTests.m */,
 				A8811F781B130E940035D609 /* SHTemporaryFileTests.m */,
 				A8811F7D1B131BAF0035D609 /* SHDocumentsFileTests.m */,
+				A8E293921B16F63700902262 /* SHDownloaderTests.m */,
 				A8813DBF1B0DB3CB00A04E81 /* Supporting Files */,
 				A8AC6AAC1B141BC60039A82E /* Categories */,
 			);
@@ -149,6 +155,8 @@
 				A8811F761B130D350035D609 /* SHTemporaryFile.m */,
 				A8811F7A1B1318980035D609 /* SHDocumentsFile.h */,
 				A8811F7B1B1318980035D609 /* SHDocumentsFile.m */,
+				A8E2938D1B16F5A300902262 /* SHDownloader.h */,
+				A8E2938E1B16F5A300902262 /* SHDownloader.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -265,6 +273,7 @@
 				A8952BFD1B15974300FEA378 /* SHFile+Generator.m in Sources */,
 				A8813DAE1B0DB3CB00A04E81 /* ViewController.m in Sources */,
 				A8811F771B130D350035D609 /* SHTemporaryFile.m in Sources */,
+				A8E2938F1B16F5A300902262 /* SHDownloader.m in Sources */,
 				A8813DAB1B0DB3CB00A04E81 /* AppDelegate.m in Sources */,
 				A8811F7C1B1318980035D609 /* SHDocumentsFile.m in Sources */,
 				A8813DCD1B0DB52600A04E81 /* SHFile.m in Sources */,
@@ -278,6 +287,7 @@
 			files = (
 				A8811F791B130E940035D609 /* SHTemporaryFileTests.m in Sources */,
 				A8813DC21B0DB3CB00A04E81 /* SHFileTests.m in Sources */,
+				A8E293931B16F63700902262 /* SHDownloaderTests.m in Sources */,
 				A8AC6AAB1B141BC20039A82E /* SHFile+Generator.m in Sources */,
 				A8811F7E1B131BAF0035D609 /* SHDocumentsFileTests.m in Sources */,
 			);
