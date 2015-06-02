@@ -9,7 +9,8 @@ and the other subclass _SHDocumentsFile_ is used to save data in the documents d
 - The following example is only related to _SHTemporaryFile_ class,
 and the usage of _SHDocumentsFile_ is quite similar.
 
-First of all, invoke the set-up method.
+First of all, invoke the set-up method,
+and AppDelegate is a proper place to call the set-up method.
 
     [SHTemporaryFile setUp];
 
