@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "SHDocumentsFile.h"
 #import "SHFile+Generator.h"
+#import <OCMock/OCMock.h>
 
 @interface SHDocumentsFileTests : XCTestCase
 
@@ -70,4 +71,12 @@
     XCTAssertNotNil([file retrieveData], @"Data is empty.");
 }
 
+/*
+- (void)testInitialization
+{
+    id mockFileManager = OCMClassMock([NSFileManager class]);
+    [[mockFileManager expect] createDirectoryAtPath:[OCMArg any] withIntermediateDirectories:[OCMArg any] attributes:[OCMArg any] error:nil];
+    [mockFileManager verify];
+}
+*/
 @end
