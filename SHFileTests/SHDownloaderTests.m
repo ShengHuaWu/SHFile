@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "SHDownloader.h"
+#import <OCMock/OCMock.h>
 
 @interface SHDownloaderTests : XCTestCase
 
@@ -30,10 +31,27 @@
     [super tearDown];
 }
 
-#pragma mark - Test
+#pragma mark - Unit test
 - (void)testFetchData
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch Data"];
+
+    id mockMainQueue = OCMPartialMock([NSOperationQueue mainQueue]);
+    [[[mockMainQueue stub] andDo:^(NSInvocation *invocation) {
+        [expectation fulfill];
+    }] addOperationWithBlock:[OCMArg any]];
+    
+    [self.downloader fetchDataInBackground:nil handler:nil];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {
+        XCTAssertNil(error, @"Waiting error: %@", [error localizedDescription]);
+    }];
+}
+
+#pragma mark - Acceptance test
+- (void)testFetchImage
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch Image"];
     
     NSURL *url = [NSURL URLWithString:@"http://tmacfitness.com/wp-content/uploads/2013/04/Beauty-of-nature-random-4884759-1280-800.jpg"];
     [self.downloader fetchDataInBackground:url handler:^(NSData *data, NSError *error) {
