@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "SHFile.h"
+#import "SHFile+Generator.h"
+#import <OCMock/OCMock.h>
 
 @interface SHFileTests : XCTestCase
+
+@property (nonatomic, strong) id mockFileManager;
 
 @end
 
@@ -19,14 +23,66 @@
 - (void)setUp
 {
     [super setUp];
+    self.mockFileManager = OCMPartialMock([NSFileManager defaultManager]);
 }
 
 - (void)tearDown
 {
+    [self.mockFileManager stopMocking];
+    self.mockFileManager = nil;
     [super tearDown];
 }
 
-#pragma mark - Test
+#pragma mark - Unit test
+- (void)testSetUp
+{
+    [[self.mockFileManager expect] createDirectoryAtURL:[OCMArg any] withIntermediateDirectories:YES attributes:nil error:nil];
+    [SHFile setUp];
+    
+    [self.mockFileManager verify];
+}
+
+- (void)testCleanUp
+{
+    [[self.mockFileManager expect] removeItemAtURL:[OCMArg any] error:nil];
+    [SHFile cleanUp];
+    
+    [self.mockFileManager verify];
+}
+
+- (void)testSaveFile
+{
+    id mockData = OCMClassMock([NSData class]);
+    [[[mockData stub] andReturnValue:@1] length];
+    [[mockData expect] writeToURL:[OCMArg any] options:NSDataWritingAtomic error:[OCMArg anyObjectRef]];
+    
+    SHFile *file = [SHFile fileWithName:nil data:mockData];
+    [file saveData:nil];
+    
+    [mockData verify];
+}
+
+- (void)testDeleteFile
+{
+    [[self.mockFileManager expect] removeItemAtURL:[OCMArg any] error:[OCMArg anyObjectRef]];
+    
+    SHFile *file = [SHFile generateEmptyFile];
+    [file deleteData:nil];
+    
+    [self.mockFileManager verify];
+}
+
+- (void)testRetrieveData
+{
+    [[self.mockFileManager expect] fileExistsAtPath:[OCMArg any]];
+    
+    SHFile *file = [SHFile generateEmptyFile];
+    [file retrieveData];
+    
+    [self.mockFileManager verify];
+}
+
+#pragma mark - Acceptance test
 - (void)testFileCreation
 {
     NSString *name = @"readme.md";

@@ -11,6 +11,11 @@
 
 @implementation SHFile (Generator)
 
++ (SHFile *)generateEmptyFile
+{
+    return [self fileWithName:nil data:nil];
+}
+
 + (SHFile *)generateTestFile
 {
     NSString *name = @"LargeImage.jpg";

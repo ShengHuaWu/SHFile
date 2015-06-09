@@ -10,9 +10,10 @@
 #import <XCTest/XCTest.h>
 #import "SHDocumentsFile.h"
 #import "SHFile+Generator.h"
-#import <OCMock/OCMock.h>
 
 @interface SHDocumentsFileTests : XCTestCase
+
+@property (nonatomic, strong) id mockFileManager;
 
 @end
 
@@ -21,7 +22,7 @@
 - (void)setUp
 {
     [super setUp];
-    [SHDocumentsFile setUp];
+    [SHDocumentsFile setUp];    
 }
 
 - (void)tearDown
@@ -30,18 +31,7 @@
     [super tearDown];
 }
 
-#pragma mark - Disable test
-- (void)DISABLE_testSetUp
-{
-    XCTAssert([SHDocumentsFile setUp], @"Set up failed.");
-}
-
-- (void)DISABLE_testCleanUp
-{
-    XCTAssert([SHDocumentsFile cleanUp], @"Clean up failed.");
-}
-
-#pragma mark - Test
+#pragma mark - Acceptance test
 - (void)testSaveAndDeleteSingleFile
 {
     SHDocumentsFile *file = (SHDocumentsFile *)[SHDocumentsFile generateTestFile];
@@ -71,12 +61,4 @@
     XCTAssertNotNil([file retrieveData], @"Data is empty.");
 }
 
-/*
-- (void)testInitialization
-{
-    id mockFileManager = OCMClassMock([NSFileManager class]);
-    [[mockFileManager expect] createDirectoryAtPath:[OCMArg any] withIntermediateDirectories:[OCMArg any] attributes:[OCMArg any] error:nil];
-    [mockFileManager verify];
-}
-*/
 @end

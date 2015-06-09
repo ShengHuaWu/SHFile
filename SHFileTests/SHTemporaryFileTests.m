@@ -29,18 +29,7 @@
     [super tearDown];
 }
 
-#pragma mark - Disable test
-- (void)DISABLE_testSetUp
-{
-    XCTAssert([SHTemporaryFile setUp], @"Set up failed.");
-}
-
-- (void)DISABLE_testCleanUp
-{
-    XCTAssert([SHTemporaryFile cleanUp], @"Clean up failed.");
-}
-
-#pragma mark - Test
+#pragma mark - Acceptance test
 - (void)testSaveAndDeleteSingleFile
 {
     SHTemporaryFile *file = (SHTemporaryFile *)[SHTemporaryFile generateTestFile];

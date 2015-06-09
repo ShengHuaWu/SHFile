@@ -10,7 +10,7 @@
 
 @interface SHFile ()
 
-@property (nonatomic, strong ,readwrite) NSString *fileID;
+@property (nonatomic, strong, readwrite) NSString *fileID;
 @property (nonatomic, strong, readwrite) NSString *name;
 @property (nonatomic, strong) NSData *data;
 

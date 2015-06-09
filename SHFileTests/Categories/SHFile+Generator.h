@@ -10,6 +10,7 @@
 
 @interface SHFile (Generator)
 
++ (SHFile *)generateEmptyFile;
 + (SHFile *)generateTestFile;
 + (NSArray *)generateTestFiles;
 
