@@ -130,10 +130,8 @@ xcuserdata
 
 
 
-# cocoapod
-Podfile.lock
+# CocoaPod
 Pods/**/*
-*.xcworkspace/*
 
 ####
 # Rails

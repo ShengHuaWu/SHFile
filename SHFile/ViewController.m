@@ -29,7 +29,7 @@
     self.scrollView = scrollView;
     
     self.downloader = [[SHDownloader alloc] init];
-    NSURL *url = [NSURL URLWithString:@"http://tmacfitness.com/wp-content/uploads/2013/04/Beauty-of-nature-random-4884759-1280-800.jpg"];
+    NSURL *url = [NSURL URLWithString:@"http://www.forestwander.com/wp-content/original/2012_04/bluestone-valley-view.jpg"];
     [self.downloader fetchDataInBackground:url handler:^(NSData *data, NSError *error) {
         if ([data length]) {
             SHTemporaryFile *file = [SHTemporaryFile fileWithName:@"LargeImage" data:data];

@@ -34,7 +34,6 @@
         NSHTTPURLResponse *response = nil;
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        // Back to the main thread
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             if (hanlder) {
                 if (response.statusCode == 200) {
